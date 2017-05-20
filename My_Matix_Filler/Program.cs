@@ -17,12 +17,12 @@ namespace My_Matix_Filler
             {
                 while (true)
                 {
-                    //Parallel.Invoke(fill.WriteSymbols, fill2.WriteSymbolsReverse);
-                    Parallel.Invoke(new Action(fill.WriteSymbols), new Action (fill2.WriteSymbolsReverse));
-                    /*Parallel.Invoke(() => fill.WriteSymbols(),
-                                      () => fill2.WriteSymbolsReverse());*/
+                    Task.Factory.StartNew(fill.WriteSymbols).Wait(); // использую фабрику
+                    Task.Factory.StartNew(fill2.WriteSymbolsReverse).Wait();
+                    Thread.Sleep(2); //пауза, чтобы таски успели корректно запуститься и завершиться
                 }
-                //if (threads.Length != threads2.Length) { throw new OwnException("Длины массивов отличаются, что привело к ошибке!"); }
+                
+                
             }
             catch (OwnException ex)
             {

@@ -28,7 +28,7 @@ namespace My_Matix_Filler
                 //char sym = (char)randomNumber.Next(30, 79); // получаем случайные символы
                 Console.SetCursorPosition(curPosCol, curPosRow++); //устанавливаем позицию курсора и сдвиг на 1 вниз
                 //Console.Write(sym);
-                Console.Write("Parallel");
+                Console.Write("TPL");
                 Thread.Sleep(2);
             }
             curPosCol++; //передвигаем курсор на 1 колонку правее
