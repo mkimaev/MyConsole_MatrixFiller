@@ -20,49 +20,49 @@ namespace My_Matix_Filler
                 
             Thread[] threads = new Thread[60];
             Thread[] threads2 = new Thread[60];
-            if (threads.Length != threads2.Length) { throw new OwnException("Длины массивов отличаются, что привело к ошибке!"); }
+            if (threads.Length != threads2.Length) { throw new OwnException("Р”Р»РёРЅС‹ РјР°СЃСЃРёРІРѕРІ РѕС‚Р»РёС‡Р°СЋС‚СЃСЏ, С‡С‚Рѕ РїСЂРёРІРµР»Рѕ Рє РѕС€РёР±РєРµ!"); }
             for (int i = 0; i < threads.Length; i++)
             {
-                threads[i] = new Thread(new ThreadStart(WriteSymbols)); //инициализация потока c применением делtгата ThreadStart
-                threads2[i] = new Thread(() => { WriteSymbolsReverse(); }); //инициализация потока c применением лямбды
-                threads[i].Start(); //старт
+                threads[i] = new Thread(new ThreadStart(WriteSymbols)); //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРѕС‚РѕРєР° c РїСЂРёРјРµРЅРµРЅРёРµРј РґРµР»tРіР°С‚Р° ThreadStart
+                threads2[i] = new Thread(() => { WriteSymbolsReverse(); }); //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРѕС‚РѕРєР° c РїСЂРёРјРµРЅРµРЅРёРµРј Р»СЏРјР±РґС‹
+                threads[i].Start(); //СЃС‚Р°СЂС‚
                 threads2[i].Start();
                 //threads[i].Join();
-                threads2[i].Join(); //ожидаем пока поток завершиться
+                threads2[i].Join(); //РѕР¶РёРґР°РµРј РїРѕРєР° РїРѕС‚РѕРє Р·Р°РІРµСЂС€РёС‚СЊСЃСЏ
             }
             }
             catch (OwnException ex)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Пример рабочей версии посмотрите тут {0}", ex.HelpLink);
+                Console.WriteLine("РџСЂРёРјРµСЂ СЂР°Р±РѕС‡РµР№ РІРµСЂСЃРёРё РїРѕСЃРјРѕС‚СЂРёС‚Рµ С‚СѓС‚ {0}", ex.HelpLink);
             }
             Console.ReadLine();
         }
         /// <summary>
-        /// прорисовка слева направо
+        /// РїСЂРѕСЂРёСЃРѕРІРєР° СЃР»РµРІР° РЅР°РїСЂР°РІРѕ
         /// </summary>
         static void WriteSymbols()
         {
-            //используем приёмы для синхронизацию к разделяемому ресурсу
+            //РёСЃРїРѕР»СЊР·СѓРµРј РїСЂРёС‘РјС‹ РґР»СЏ СЃРёРЅС…СЂРѕРЅРёР·Р°С†РёСЋ Рє СЂР°Р·РґРµР»СЏРµРјРѕРјСѓ СЂРµСЃСѓСЂСЃСѓ
             lock (block) // Monitor.Enter(block)
             {
                 Random randomNumber = new Random();
-                int randColor = randomNumber.Next(15); //получаем случайное число меньше 15
-                Console.ForegroundColor = (ConsoleColor)randColor; //красим символы
-                for (int j = randomNumber.Next(1, 25); j < 30; j++) //пускаем 1 колонку случайной длины
+                int randColor = randomNumber.Next(15); //РїРѕР»СѓС‡Р°РµРј СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РјРµРЅСЊС€Рµ 15
+                Console.ForegroundColor = (ConsoleColor)randColor; //РєСЂР°СЃРёРј СЃРёРјРІРѕР»С‹
+                for (int j = randomNumber.Next(1, 25); j < 30; j++) //РїСѓСЃРєР°РµРј 1 РєРѕР»РѕРЅРєСѓ СЃР»СѓС‡Р°Р№РЅРѕР№ РґР»РёРЅС‹
                 {
-                    char sym = (char)randomNumber.Next(30, 79); // получаем случайные символы
-                    Console.SetCursorPosition(curPosCol, curPosRow++); //устанавливаем позицию курсора и сдвиг на 1 вниз
+                    char sym = (char)randomNumber.Next(30, 79); // РїРѕР»СѓС‡Р°РµРј СЃР»СѓС‡Р°Р№РЅС‹Рµ СЃРёРјРІРѕР»С‹
+                    Console.SetCursorPosition(curPosCol, curPosRow++); //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїРѕР·РёС†РёСЋ РєСѓСЂСЃРѕСЂР° Рё СЃРґРІРёРі РЅР° 1 РІРЅРёР·
                     Console.Write(sym);
                     Thread.Sleep(2);
                 }
-                curPosCol++; //передвигаем курсор на 1 колонку правее
-                curPosRow = 0; //обнуляем позицию строки
+                curPosCol++; //РїРµСЂРµРґРІРёРіР°РµРј РєСѓСЂСЃРѕСЂ РЅР° 1 РєРѕР»РѕРЅРєСѓ РїСЂР°РІРµРµ
+                curPosRow = 0; //РѕР±РЅСѓР»СЏРµРј РїРѕР·РёС†РёСЋ СЃС‚СЂРѕРєРё
             } // Monitor.Exit(block)
         }
         /// <summary>
-        /// прорисовка справа налево
+        /// РїСЂРѕСЂРёСЃРѕРІРєР° СЃРїСЂР°РІР° РЅР°Р»РµРІРѕ
         /// </summary>
         static void WriteSymbolsReverse()
         {
@@ -78,7 +78,7 @@ namespace My_Matix_Filler
                     Console.Write(sym);
                     Thread.Sleep(2);
                 }
-                curPosCol2--; //передвигаем курсор на 1 колонку левее
+                curPosCol2--; //РїРµСЂРµРґРІРёРіР°РµРј РєСѓСЂСЃРѕСЂ РЅР° 1 РєРѕР»РѕРЅРєСѓ Р»РµРІРµРµ
                 curPosRow2 = 0;
             }
         }
